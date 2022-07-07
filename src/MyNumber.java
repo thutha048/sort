@@ -83,15 +83,14 @@ public class MyNumber {
 	
 	//Declare color
 	public static Color COLOR1= Color.BLACK;
-	public static Color COLOR2= Color.RED;
+	public static Color COLOR2= Color.WHITE;
 	
 	//Create function draw to set color and value for pic
-	
 	public void draw() {
 		if(graph!= null) {
 			Graphics2D g =(Graphics2D) graph;
 			g.setColor(COLOR1);
-			g.fill(getFace());
+			g.fill(getShape());
 			
 			Font font = new Font("arial", Font.ITALIC | Font.BOLD, 15);
 			g.setFont(font);

@@ -17,9 +17,6 @@ import javax.swing.JTextField;
 enum SORTTYPE {BUBBLE_SORT, SELECTION_SORT};
 public class MyNumberFrame extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public static SORTTYPE SortType = SORTTYPE.BUBBLE_SORT;
 	MyNumberPanel pnCenter =null;
@@ -42,9 +39,9 @@ public class MyNumberFrame extends JFrame{
 		
 		JPanel pnNorthBorder = new JPanel();
 		pnNorthBorder.setLayout(new BoxLayout(pnNorthBorder,BoxLayout.Y_AXIS));
-//	
+
 		JPanel pnNorthBorderLine1 = new JPanel();
-		JLabel lblNumber = new JLabel("Number Of: ");
+		JLabel lblNumber = new JLabel("Size of array: ");
 		txtNumber = new JTextField(3);
 		JButton btnDraw = new JButton("Draw");
 		pnNorthBorderLine1.add(lblNumber);
@@ -81,7 +78,7 @@ public class MyNumberFrame extends JFrame{
 			}
 		});
 		
-		btnSort.addActionListener(new ActionListener() {
+		btnSort.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int n = cboAlgorithm.getSelectedIndex();
@@ -98,13 +95,13 @@ public class MyNumberFrame extends JFrame{
 				Thread th = new Thread(run);
 				th.start();
 			}
-		});
+		} );
 		
 	}
 
 	public MyNumberFrame() {
 		addControl();
-		setSize(800,400);
+		setSize(1000,500);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}

@@ -9,27 +9,14 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 public class MyNumberPanel extends JPanel implements MouseListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	private boolean isFinished = false;
-
 	//Declare array
 	ArrayList<MyNumber> arr = new ArrayList<>();
-	
-
-
 	
 	public boolean isIsFinished() {
 		return isFinished;
 	}
-
-	/*public void setFinished(boolean isFinished) {
-		this.isFinished = isFinished;
-	}*/
-
 	public void addNumber(MyNumber number) {
 		arr.add(number);
 	}
@@ -60,15 +47,13 @@ public class MyNumberPanel extends JPanel implements MouseListener{
 	//Create function to output the current position of value
 	public void printInfor() {
 		for(MyNumber number : arr) {
-			System.out.println(number.getNum()+ "(x: "+ number.getX()+",y: "+ number.getY()+ " )");
+			System.out.println(number.getNum()+ "(x: "+ number.getX()+", y: "+ number.getY()+ ")");
 			
 		}
 	}
 	
-	
 	//Sort position of circles
-	public synchronized void moveControl(MyNumber n1, MyNumber n2) {
-		
+	public synchronized void moveControl(MyNumber n1, MyNumber n2) {	
 		printInfor();
 		//Khai bao position of pic
 		double x1 =n1.getX();
@@ -78,6 +63,7 @@ public class MyNumberPanel extends JPanel implements MouseListener{
 		
 		try {
 			//Use loop to up pic ( cho pic di len)
+			//50 khoang cach di len
 			for(int k=0; k<50;k++) {
 				n1.setY(y1+k);
 				n2.setY(y2-k);
@@ -112,28 +98,60 @@ public class MyNumberPanel extends JPanel implements MouseListener{
 		}
 	}
 	
+	//khi 2 so da dc thoa man thi ta cho no hien len 
+	public synchronized void moveControlSame(MyNumber n1, MyNumber n2) {
+		try {
+			printInfor();
+			//Khai bao position of pic 
+			double y1 =n1.getY();
+			double y2 =n2.getY();
+			
+			//up
+			for(int k=0; k<50;k++) {
+				n1.setY(y1+k);
+				n2.setY(y2-k);
+				Thread.sleep(10);				
+			//Update the new position of pic
+				repaint();
+			}
+			y1 = n1.getY();
+			y2 = n2.getY();
+			
+			//cho pic di xuong
+			for(int k=1; k<50;k++) {
+				n1.setY(y1-k);
+				n2.setY(y2+k);
+				Thread.sleep(10);
+				repaint();
+			}
+		
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+			Thread.currentThread().interrupt();
+		}
+	}
 	
-	//Tao ham dong bo
-	//Tao ham sap xep cac gtri tu nho den lon
 	public synchronized void doBubbleSort() {
 		try {
 			isFinished = false;
 			//ktra giatri
-			for(int i=0;i<arr.size();i++) {
-				for(int j=i+1; j<arr.size(); j++) {
-					MyNumber n1= arr.get(i);
-					MyNumber n2= arr.get(j);
+			for(int i=0;i<arr.size()-1;i++) {
+				for(int j=0; j<arr.size()-i-1; j++) {
+					MyNumber n1= arr.get(j);
+					MyNumber n2= arr.get(j+1);
 					if(n1.getNum()>n2.getNum()) {
 						//call moveControl to change position of pic
 						moveControl(n1,n2);
 						MyNumber nt1 = n1;
 						n1=n2;
-						n1=nt1;
-						arr.set(i, n1);
-						arr.set(j,n2);
+						n2=nt1;
+						arr.set(j, n1);
+						arr.set(j+1,n2);
+					}else {
+						//neu n1 va n2 da thoa man thu tu
+						moveControlSame(n1,n2);
 					}
-				}
-				
+				}		
 			}
 			isFinished =true;
 			System.out.println("------------");
@@ -149,29 +167,29 @@ public class MyNumberPanel extends JPanel implements MouseListener{
 	public synchronized void doSelectionSort() {
 		try {
 			isFinished = false;
-			//duyet tu 1 den size-1
 			for(int i=0;i<arr.size()-1;i++) {
 				//set min tai vi tri dau
 				int minId=i;
-				//loop tu i+1 den size
 				for(int j=i+1;j<arr.size();j++) {
-					//ktra neu
-					if(arr.get(minId).getNum()> arr.get(j).getNum()) {
+					if( arr.get(j).getNum() < arr.get(minId).getNum()) {
 						minId =j;
 					}
 				}
 				//Neu minId # i thi thay doi vi tri cua hinh
 				// swap
+				MyNumber n1 =arr.get(i);
+				MyNumber n2 = arr.get(minId);
 				if(minId!= i) {
-					MyNumber n1 =arr.get(minId);
-					MyNumber n2 = arr.get(i);
-					moveControl(n2,n1);
-					MyNumber nt1 = n1;
-					n1=n2;
-					n2 = nt1;
-					arr.set(minId, n1);
-					arr.set(i, n2);
+					moveControl(n1,n2);
+					MyNumber nt1 = n2;
+					n2=n1;
+					n1 = nt1;
+					arr.set(i, n1);
+					arr.set(minId, n2);
 					
+				}else {
+					//neu n1 va n2 da thoa man thu tu
+					moveControlSame(n1,n2);
 				}
 			}
 			
@@ -200,37 +218,23 @@ public class MyNumberPanel extends JPanel implements MouseListener{
 		}
 	}
 
-/*
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}*/
-
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
-
-	
-	
 }
