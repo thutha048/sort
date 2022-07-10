@@ -13,17 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-enum SORTTYPE {BUBBLE_SORT, SELECTION_SORT,INSERTION_SORT};
+enum SORTTYPE {BUBBLE_SORT, SELECTION_SORT};
 public class NumberFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	public static SORTTYPE SortType = SORTTYPE.BUBBLE_SORT;
-	///////////
+	
 	NumberPanel pnCenter =null;
 	JTextField txtNumber = null;
 	JTextField txtNumber1 = null;
 	
-	public void drawControl() {
+	public void inputControl() {
 		//add numbers 
 		int num = Integer.parseInt(txtNumber.getText());
 		Number.COLOR1 = Color.black;
@@ -69,7 +69,9 @@ public class NumberFrame extends JFrame{
 		pnNorthBorderLine2.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pnNorthBorderLine1.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JLabel lblAlgorithm = new JLabel("Algorithm: ");
-		JComboBox jComboBox = new JComboBox(new String[]{"Bubble sort","Selection sort","Insertion sort"});
+		
+		//create a jcombobox to choose algo
+		JComboBox jComboBox = new JComboBox(new String[]{"Bubble sort","Selection sort"});
 		//final JComboBox cboAlgorithm = new JComboBox(new String[]{"Bubble sort","Selection sort"});
 		final JComboBox cboAlgorithm = jComboBox;
 		JButton btnSort = new JButton("Start Sort!");
@@ -90,7 +92,7 @@ public class NumberFrame extends JFrame{
 		btnDraw.addActionListener( new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				drawControl();
+				inputControl();
 			}
 		});
 		
@@ -104,8 +106,7 @@ public class NumberFrame extends JFrame{
 					break;
 				case 1:
 					SortType = SORTTYPE.SELECTION_SORT;
-					break;
-		
+					break;		
 				}
 				System.out.println(n);
 				NumberPanelRunable run = new NumberPanelRunable(pnCenter);

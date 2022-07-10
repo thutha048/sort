@@ -151,8 +151,11 @@ public class NumberPanel extends JPanel implements MouseListener{
 						//call moveControl to change position of pic
 						moveControl(n1,n2);
 						//SWAP n1 , n2: 
-						arr.set(j, n2);
-						arr.set(j+1,n1);
+						Number tmp =n1;
+						n1 =n2;
+						n2=tmp;
+						arr.set(j, n1);
+						arr.set(j+1,n2);
 					}else {
 						//neu n1 va n2 da thoa man thu tu
 						moveControlSame(n1,n2);
@@ -189,8 +192,11 @@ public class NumberPanel extends JPanel implements MouseListener{
 				if(minId!= i) {
 					moveControl(n1,n2);
 					//SWAP n1, n2
-					arr.set(i, n2);
-					arr.set(minId, n1);
+					Number tmp =n1;
+					n1 =n2;
+					n2=tmp;
+					arr.set(i, n1);
+					arr.set(minId, n2);
 					
 				}else {
 					//neu n1 va n2 da thoa man thu tu
@@ -209,89 +215,6 @@ public class NumberPanel extends JPanel implements MouseListener{
 	}
 	
 	
-	public synchronized void doInsertionSort() {
-		try {
-			isFinished =false;
-			
-			for(int i=1; i < arr.size();i++) {
-				int j=i-1;
-				while(j>=0 && arr.get(i).getNum() > arr.get(j+1).getNum()) {
-					Number n1 = arr.get(j);
-					Number n2 = arr.get(j+1);
-					moveControl(n1,n2);
-					//SWAP n1,n2
-					arr.set(j, n2);
-					arr.set(j+1, n1);
-					j--;
-				}
-			}
-			isFinished = true;
-			System.out.println("---------");
-			printInfor();
-			Number.COLOR1= Color.BLUE;
-			repaint();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	/*public synchronized void doQuickSort() {
-		try {
-			isFinished =false;
-			
-			quickSort(arr,0,arr.size()-1);
-			
-			isFinished = true;
-			System.out.println("---------");
-			printInfor();
-			Number.COLOR1= Color.BLUE;
-			repaint();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-	public synchronized void quickSort(ArrayList<Number> arr, int low, int high) {
-		if(low<high) {
-			int p =partition(arr,low,high);
-			quickSort(arr,low,p-1);
-			quickSort(arr,p+1,high);
-		}
-	}
-	
-	public synchronized int partition(ArrayList<Number> arr,int low, int high) {
-		Number pivot = arr.get(high);
-		int i = low-1;
-		for(int j=low;j<high;j++) {
-			// If current element is smaller than the pivot
-			if(arr.get(j).getNum() < pivot.getNum()) {
-				i++;
-				Number n1 = arr.get(i);
-				Number n2= arr.get(j);
-				if(n1.getNum()!= n2.getNum()) {
-					System.out.println(n1.getNum()+" <-> "+ n2.getNum());
-					moveControl(n1,n2);
-					//SWAP n1, n2:
-					arr.set(i, n2);
-					arr.set(j, n1);
-				}else {
-					moveControlSame(n1,n2);
-				}
-			}
-		}
-		Number n1 = arr.get(i+1);
-		Number n2 = arr.get(high);
-		if(n1.getNum()!= n2.getNum()) {
-			moveControl(n1,n2);
-			//SWAP n1,n2:
-			arr.set(i+1, n2);
-			arr.set(high, n1);
-		}else {
-			moveControlSame(n1,n2);
-		}
-		return i+1;
-	}
-	*/
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub

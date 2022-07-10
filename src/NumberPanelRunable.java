@@ -21,12 +21,7 @@ public class NumberPanelRunable implements Runnable {
 				case SELECTION_SORT:
 					numberPanel.doSelectionSort();
 					break;
-				case INSERTION_SORT:
-					numberPanel.doInsertionSort();
-					break;
-				/*case QUICK_SORT:
-					numberPanel.doQuickSort();
-					break;*/
+				
 				}
 				Thread.sleep(1000);
 				isFinished = numberPanel.isIsFinished();
