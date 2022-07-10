@@ -23,9 +23,18 @@ public class Number {
 	public Ellipse2D getShape() {
 		//Declare ellipse2d 
 		face = new Ellipse2D.Double(x,y,XSIZE,YSIZE);
+		//x,y :center ; XSIZE,YSIZE : radius
 		return face;
 	}
 
+	/*private Circle2D face;
+	
+	public Circle getShape() {
+		//Declare ellipse2d 
+		face = new Ellipse2D.Double(x,y,XSIZE,YSIZE);
+		//x,y :center ; XSIZE,YSIZE : radius
+		return face;
+	}*/
 	public double getX() {
 		return x;
 	}

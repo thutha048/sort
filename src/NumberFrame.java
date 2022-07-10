@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-enum SORTTYPE {BUBBLE_SORT, SELECTION_SORT};
+enum SORTTYPE {BUBBLE_SORT, SELECTION_SORT,INSERTION_SORT};
 public class NumberFrame extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
@@ -69,7 +69,7 @@ public class NumberFrame extends JFrame{
 		pnNorthBorderLine2.setLayout(new FlowLayout(FlowLayout.LEFT));
 		pnNorthBorderLine1.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JLabel lblAlgorithm = new JLabel("Algorithm: ");
-		JComboBox jComboBox = new JComboBox(new String[]{"Bubble sort","Selection sort"});
+		JComboBox jComboBox = new JComboBox(new String[]{"Bubble sort","Selection sort","Insertion sort"});
 		//final JComboBox cboAlgorithm = new JComboBox(new String[]{"Bubble sort","Selection sort"});
 		final JComboBox cboAlgorithm = jComboBox;
 		JButton btnSort = new JButton("Start Sort!");
@@ -105,6 +105,7 @@ public class NumberFrame extends JFrame{
 				case 1:
 					SortType = SORTTYPE.SELECTION_SORT;
 					break;
+		
 				}
 				System.out.println(n);
 				NumberPanelRunable run = new NumberPanelRunable(pnCenter);
